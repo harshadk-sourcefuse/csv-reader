@@ -9,6 +9,9 @@ RUN mkdir -p /home/node/app
 
 WORKDIR /home/node/app
 
+# Copy the file from the project directory into the image
+COPY marvel.csv /usr/src/app/marvel.csv
+
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
