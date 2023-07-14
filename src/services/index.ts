@@ -1,1 +1,1 @@
-export * from "./csv-extractor.service"
+export * from "./mutual-funds-extractor.service"
