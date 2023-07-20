@@ -14,7 +14,7 @@ import { CSV_RESPONSE } from '../../types';
 export class MutualFundsControllerV3 {
   constructor(
     @service(MutualFundsExtractorService)
-    private readonly csvExtractorService: MutualFundsExtractorService,
+    private readonly mutualFundsExtractorService: MutualFundsExtractorService,
     @inject(RestBindings.Http.RESPONSE)
     private readonly response: Response,) { }
 
@@ -23,7 +23,7 @@ export class MutualFundsControllerV3 {
   @response(200, CSV_RESPONSE)
   async ping(): Promise<object> {
     this.response.status(200).send({
-      csvData: await this.csvExtractorService.extract()
+      mutualFundsData: await this.mutualFundsExtractorService.extract()
     });
     return this.response;
   }

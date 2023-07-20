@@ -17,3 +17,5 @@ export const CSV_RESPONSE: ResponseObject = {
         },
     },
 };
+
+export const latestVersionMutualFundsAPI =  "/v3/mutual-funds";
