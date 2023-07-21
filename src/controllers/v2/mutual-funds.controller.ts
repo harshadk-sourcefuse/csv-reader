@@ -1,5 +1,6 @@
 import { inject, service } from '@loopback/core';
 import {
+  OperationObject,
   Request,
   Response,
   RestBindings,
@@ -10,6 +11,14 @@ import {
 import { CSV_RESPONSE, latestVersionMutualFundsAPI } from '../../types';
 import { MutualFundsExtractorService } from '../../services';
 
+const apiDescription: OperationObject = {
+  tags: ["mutual-funds"],
+  summary: "version 2 API of mutual funds",
+  description: "Mutual funds v2",
+  responses: {
+    "299": CSV_RESPONSE
+  }
+};
 /**
  * A simple controller to bounce back http requests
  */
@@ -23,7 +32,7 @@ export class MutualFundsControllerV2 {
     private readonly request: Request,) { }
 
   // Map to `GET /ping`
-  @get('/v2/mutual-funds')
+  @get('/v2/mutual-funds', apiDescription)
   @response(299, CSV_RESPONSE)
   @oas.deprecated(true)
   async ping(): Promise<object> {
