@@ -11,8 +11,8 @@ import { CSV_RESPONSE } from '../../types';
 
 const apiDescription: OperationObject = {
   tags: ["mutual-funds"],
-  summary: "version 2 API of mutual funds",
-  description: "Mutual funds v2",
+  summary: "version 3 API of mutual funds",
+  description: "Mutual funds v3",
   responses: {
     "200": CSV_RESPONSE
   }
