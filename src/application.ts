@@ -1,5 +1,5 @@
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
+import {ApplicationConfig, createBindingFromClass} from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
@@ -9,6 +9,7 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import { CustomSpecEnhancer } from './custom-spec-enhancer';
 
 export {ApplicationConfig};
 
@@ -29,7 +30,8 @@ export class CsvReaderApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
-
+    this.add(createBindingFromClass(CustomSpecEnhancer));
+    
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
