@@ -11,7 +11,7 @@ import {
   response
 } from '@loopback/rest';
 import { MutualFundsExtractorService } from '../../services';
-import { CSV_RESPONSE, ERROR_RESPONSE, Filter, latestVersionMutualFundsAPI } from '../../types';
+import { CSV_RESPONSE, ERROR_RESPONSE, latestVersionMutualFundsAPI } from '../../types';
 
 const apiDescription: OperationObject = {
   tags: ["mutual-funds"],
@@ -22,7 +22,7 @@ const apiDescription: OperationObject = {
     "400": ERROR_RESPONSE
   }
 };
-const res :ResponsesObject={};
+const res: ResponsesObject = {};
 /**
  * A simple controller to bounce back http requests
  */
@@ -39,10 +39,13 @@ export class MutualFundsControllerV1 {
   @get('/v1/mutual-funds', apiDescription)
   @response(299, CSV_RESPONSE)
   @oas.deprecated(true)
-  async ping(@param.query.object('filter') filter: Filter): Promise<object> {
+  async ping(
+    @param.query.number('page') page?: number,
+    @param.query.number('limit') limit?: number
+  ): Promise<object> {
     const url = `${this.request.protocol}://${this.request.headers.host}${latestVersionMutualFundsAPI}`;
     this.response.status(299).setHeader("Location", url).send({
-      mutualFundsData: await this.mutualFundsExtractorService.extract(filter)
+      mutualFundsData: await this.mutualFundsExtractorService.extract(page, limit)
     });
     return this.response;
   }

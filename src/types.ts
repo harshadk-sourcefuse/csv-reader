@@ -44,14 +44,11 @@ export const ERROR_RESPONSE: ResponseObject = {
 
 export const latestVersionMutualFundsAPI = "/v3/mutual-funds";
 
-
-export type Filter = { page?: number, limit?: number };
-
-export const validateFilter = (filter: Filter) => {
-    if (filter.page && filter.page <= 0) {
+export const validateFilter = (page?: number, limit?: number) => {
+    if (page && page <= 0) {
         throw HttpErrors[400]('Page should be greater than 0.');
     }
-    if (filter.limit && filter.limit <= 0) {
+    if (limit && limit <= 0) {
         throw HttpErrors[400]('Limit should be greater than 0.');
     }
 }

@@ -8,7 +8,7 @@ import {
   response
 } from '@loopback/rest';
 import { MutualFundsExtractorService } from '../../services';
-import { CSV_RESPONSE, ERROR_RESPONSE, Filter } from '../../types';
+import { CSV_RESPONSE, ERROR_RESPONSE } from '../../types';
 
 const apiDescription: OperationObject = {
   tags: ["mutual-funds"],
@@ -32,9 +32,12 @@ export class MutualFundsControllerV3 {
   // Map to `GET /ping`
   @get('/v3/mutual-funds', apiDescription)
   @response(200, CSV_RESPONSE)
-  async ping(@param.query.object('filter') filter: Filter): Promise<object> {
+  async ping(
+    @param.query.number('page') page?: number,
+    @param.query.number('limit') limit?: number
+  ): Promise<object> {
     this.response.status(200).send({
-      mutualFundsData: await this.mutualFundsExtractorService.extract(filter)
+      mutualFundsData: await this.mutualFundsExtractorService.extract(page, limit)
     });
     return this.response;
   }
